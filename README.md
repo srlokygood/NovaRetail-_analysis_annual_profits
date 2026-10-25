@@ -1,4 +1,4 @@
-📊 NovaRetail+ — Customer Behavior & Revenue Analysis
+# Purchase Frequency Drives Annual Revenue at NovaRetail+ (Spearman ρ = 0.97)
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
@@ -7,43 +7,65 @@
 ![Seaborn](https://img.shields.io/badge/Seaborn-4C72B0?style=for-the-badge&logo=python&logoColor=white)
 ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
 
-🎯 Project Overview
+Which customer behaviors are most strongly associated with annual revenue on NovaRetail+, a fictional e-commerce platform in Latin America? Monthly purchases show a very strong monotonic association with annual revenue (Spearman ρ = 0.97), while monthly website visits show only a low-to-moderate one (ρ = 0.32).
 
-Which customer behaviors are most strongly associated with annual revenue in an e-commerce business?
+![Correlation heatmap](images/correlation_heatmap.png)
 
-This project demonstrates practical data analytics skills by investigating the relationship between customer behavior and annual revenue on NovaRetail+, a fictional e-commerce platform operating in Latin America.
+> **Important:** This is an exploratory, correlational analysis. The relationships are statistical associations and do not establish causality.
 
-Using Python, Pandas, NumPy, and statistical visualization techniques, I performed data exploration, data cleaning, descriptive statistical analysis, and correlation analysis to identify behavioral patterns associated with revenue generation.
+## Business Question
 
-🔍 Skills Demonstrated
+Which customer behaviors are most strongly associated with annual revenue, and where should further analysis focus? The answer gives NovaRetail+ an initial basis for customer segmentation, behavioral analysis, and opportunities to improve e-commerce performance.
 
-- Data Cleaning & Validation: Examined data types, missing values, and dataset consistency.
-- Exploratory Data Analysis (EDA): Investigated customer behavior and revenue-related patterns.
-- Statistical Analysis: Applied descriptive statistics to understand variable distributions and relationships.
-- Correlation Analysis: Used Pearson, Spearman, point-biserial correlation, and Cramér's V according to variable types and analytical objectives.
-- Data Visualization: Used heatmaps and scatter plots to explore relationships and communicate findings.
-- Business Insight Generation: Identified customer behaviors associated with revenue and proposed further segmentation analyses.
+## Data
 
-📈 Key Findings
+- **Source:** NovaRetail+ dataset (fictional e-commerce platform, Latin America).
+- **Files used:** *data/raw/novaretail_comportamiento_clientes_2024.csv
+- **Key variables:** `annual_revenue`, `monthly_purchases`, `monthly_visits`, `targeted_ad_spend`, plus several categorical variables
 
-- Purchase frequency and revenue: "monthly_purchases" showed a very strong positive monotonic association with "annual_revenue" (Spearman ρ = 0.97).
-- Website engagement and revenue: "monthly_visits" showed a low-to-moderate positive association with "annual_revenue" (Spearman ρ = 0.32).
-- Advertising and website traffic: "targeted_ad_spend" showed a moderate positive linear association with "monthly_visits" (Pearson r = 0.58).
-- Additional variables: Most other variables showed weak associations with annual revenue, suggesting that further segmentation may help reveal patterns not captured by simple correlation analysis.
-- Categorical relationships: Cramér's V analysis did not identify strong associations among the categorical variables examined.
+## Process
 
-💼 Business Value
+- **Cleaning and validation (pandas):** Checked data types, missing values, and dataset consistency.
+- **Exploratory data analysis:** Examined customer behavior and revenue-related patterns, and used descriptive statistics to understand distributions.
+- **Correlation analysis**, with the method chosen by variable type:
+  - Pearson for linear relationships between numeric variables
+  - Spearman for monotonic relationships
+  - Point-biserial for binary vs. numeric variables
+  - Cramér's V for categorical vs. categorical variables
+- **Visualization:** Heatmaps and scatter plots to explore and communicate relationships.
 
-The analysis provides an initial understanding of how purchasing frequency, website engagement, and targeted advertising expenditure relate to revenue and traffic.
+```python
+# Example: Spearman correlation between purchase frequency and revenue
+df["monthly_purchases"].corr(df["annual_revenue"], method="spearman")
+```
 
-These findings establish a foundation for further customer segmentation, behavioral analysis, and the investigation of potential opportunities to improve e-commerce performance.
+## Findings
 
-Important: This is an exploratory and correlational analysis. The identified relationships represent statistical associations and do not establish causality.
+1. **Purchase frequency and revenue:** `monthly_purchases` has a very strong positive monotonic association with `annual_revenue` (Spearman ρ = 0.97).
+2. **Website engagement and revenue:** `monthly_visits` has a low-to-moderate positive association with `annual_revenue` (Spearman ρ = 0.32).
+3. **Advertising and traffic:** `targeted_ad_spend` has a moderate positive linear association with `monthly_visits` (Pearson r = 0.58).
+4. **Other variables:** Most show weak associations with annual revenue, so simple correlation may not capture all patterns.
+5. **Categorical variables:** Cramér's V found no strong associations among those examined.
 
----
+## Recommendations
 
-🎯 Objective
+- Prioritize strategies that increase purchase frequency, since it is the behavior most closely tied to annual revenue.
+- Do not rely on traffic alone as a revenue lever. Visits show only a modest association with revenue.
+- Treat targeted ad spend as a traffic driver and test whether that traffic converts into purchases.
+- Run customer segmentation analyses to uncover patterns that overall correlations do not show.
 
-To analyze which customer behavior factors are most strongly associated with annual revenue generated on NovaRetail+, an e-commerce platform operating in Latin America.
+## Limitations
 
-The project employs a correlational and exploratory approach; therefore, the results identify associations between variables but do not establish causal relationships.
+- Correlation does not imply causation, so the results cannot show that purchase frequency causes revenue.
+- Pearson and Spearman capture only linear and monotonic relationships.
+- Weak overall correlations may hide effects within specific customer segments.
+- The dataset comes from a fictional platform, so results cannot be generalized to real businesses.
+
+## How to Open
+
+- Clone the repository and install the dependencies: `pip install -r requirements.txt`
+- Open the notebook with Jupyter: `S8 Student Version-Project-NovaRetail.ipynb` 
+
+## Tools
+
+Python, Pandas, NumPy, Matplotlib, Seaborn, Jupyter Notebook
